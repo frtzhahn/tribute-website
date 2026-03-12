@@ -450,14 +450,21 @@ body::after {
 @media (max-width: 1100px) {
     .modal-content {
         flex-direction: column;
-        max-width: 90vw;
+        max-width: 95vw;
         max-height: 90vh;
         overflow-y: auto;
-        gap: 20px;
+        gap: 30px;
         align-items: center;
+        padding: 40px 20px;
     }
-    .modal-content img {
-        max-height: 50vh !important;
+    .modal-img {
+        max-height: 45vh !important;
+        width: auto;
+        max-width: 100%;
+    }
+    .info-card {
+        max-width: 100%;
+        padding: 30px;
     }
 }
 
@@ -510,15 +517,42 @@ body::after {
 @media (max-width: 968px) {
     .collage-board {
         height: auto;
-        padding-top: 150px;
+        padding-top: 100px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 50px;
-        padding-bottom: 100px;
+        gap: 60px;
+        padding-bottom: 120px;
     }
     .photo-item {
         position: static;
         transform: rotate(0deg) !important;
+        animation: scatterIn 1s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    }
+    .board-title h1 {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .board-title {
+        padding: 60px 25px 0 25px;
+    }
+    .board-title h1 {
+        font-size: 2.8rem;
+        letter-spacing: -2px;
+    }
+    .intro-text {
+        font-size: 0.95rem;
+    }
+    .info-card {
+        padding: 25px;
+        box-shadow: 12px 12px 0 var(--accent);
+    }
+    .info-card h2 {
+        font-size: 1.5rem;
+    }
+    .main-footer {
+        padding: 60px 25px;
     }
 }
