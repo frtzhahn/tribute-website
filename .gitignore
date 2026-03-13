@@ -9,13 +9,16 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # Database (SQLite)
-database/*.db
-database/*.db-journal
-database/*.db-shm
-database/*.db-wal
+database/*
 
-# User Uploads
-assets/user-uploads/
+# keep images and db folder and hide its contents
+assets/images/sample-contents/*
+assets/images/user-uploads/*
+
+!assets/images/sample-contents/.gitkeep
+!assets/images/user-uploads/.gitkeep
+!database/.gitkeep
+
 
 # environment and secrets for admin keys
 .env
