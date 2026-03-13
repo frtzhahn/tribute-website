@@ -1,1 +1,25 @@
+# my helper's documentation  (don't judge me pls)
+PROJECT_AI_CONTEXT.md
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Database (SQLite)
+database/*.db
+database/*.db-journal
+database/*.db-shm
+database/*.db-wal
+
+# User Uploads
+assets/uploads/*
+!assets/uploads/.gitkeep
+
+# environment and secrets for admin keys
+.env
+
+# group members documentation for each of their part
 documentation/
