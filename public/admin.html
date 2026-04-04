@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Admin panel for the BSCS 1A Memory Book — moderate uploaded photos.">
+  <title>Admin — BSCS Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/logo.png">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div style="display: flex; align-items: center;">
+      <img src="/assets/logo.png" alt="BSCS" style="height: 30px; margin-right: 15px;">
+      <span class="navbar-brand">BSCS 1A</span>
+    </div>
+    <ul class="navbar-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/moments.html">Gallery</a></li>
+      <li><a href="/upload.html">Upload</a></li>
+      <li><a href="/admin.html" class="active">Admin</a></li>
+    </ul>
+    <div id="sys-clock" style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent);"></div>
+  </nav>
+
+  <!-- Terminal Login Card -->
+  <div class="terminal-card" id="login-section">
+    <div class="terminal-header">> ADMIN_TERMINAL // AUTHENTICATE</div>
+
+    <form id="admin-login-form">
+      <div class="form-group">
+        <label for="admin-user">USERNAME</label>
+        <input class="form-control" type="text" id="admin-user" name="username"
+               autocomplete="username" required>
+      </div>
+
+      <div class="form-group">
+        <label for="admin-pass">PASSWORD</label>
+        <input class="form-control" type="password" id="admin-pass" name="password"
+               autocomplete="current-password" required>
+      </div>
+
+      <button class="btn-terminal" type="submit" id="admin-login-btn">AUTHENTICATE</button>
+    </form>
+
+    <div class="form-status" id="admin-login-status"></div>
+  </div>
+
+  <!-- Dashboard (hidden until login) -->
+  <div class="admin-dashboard" id="dashboard-section">
+    <div class="admin-toggles" style="margin-bottom: 2rem; display: flex; gap: 1rem;">
+      <button id="btn-view-pending" class="btn-terminal active" style="margin-top: 0;">> VIEW_PENDING_QUEUE</button>
+      <button id="btn-view-active" class="btn-terminal" style="margin-top: 0;">> VIEW_ACTIVE_ARCHIVE</button>
+    </div>
+    
+    <div class="gallery-grid" id="pending-grid">
+      <!-- pending cards injected by main.js -->
+    </div>
+    
+    <div id="active-grid" class="gallery-grid" style="display: none;">
+      <!-- active cards injected by main.js -->
+    </div>
+  </div>
+
+  <!-- Admin Edit Modal -->
+  <div class="modal" id="admin-edit-modal">
+    <div class="modal-content dossier-modal-content" style="max-width: 500px; text-align: left;">
+      <button class="modal-close" id="admin-edit-close" aria-label="Close form">&times;</button>
+      <h3 style="font-family:'Fira Code',monospace;color:var(--accent);margin-bottom:1rem;">> OVERRIDE_ENTRY</h3>
+      <input type="hidden" id="edit-id">
+      <div class="form-group">
+        <label for="edit-title">TITLE</label>
+        <input class="form-control" type="text" id="edit-title" maxlength="25">
+      </div>
+      <div class="form-group">
+        <label for="edit-date">DATE</label>
+        <input class="form-control" type="date" id="edit-date">
+      </div>
+      <div class="form-group">
+        <label for="edit-alias">ALIAS</label>
+        <input type="text" id="edit-alias" class="form-control" maxlength="10" placeholder="NICKNAME/ALIAS">
+      </div>
+      <div class="form-group">
+        <label for="edit-desc">DESCRIPTION</label>
+        <textarea class="form-control" id="edit-desc" rows="3" maxlength="200"></textarea>
+      </div>
+      <button id="btn-overwrite-data" class="btn-terminal">> OVERWRITE_DATA</button>
+    </div>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

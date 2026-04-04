@@ -1,20 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Turing Archives | Classified Intelligence Intelligence</title>
-    <meta name="description" content="A photo collage tribute using sample assets.">
-    <link rel="icon" type="image/png" href="../assets/images/sample-contents/favicon.png">
-    <link rel="stylesheet" href="css/shared.css">
-    <link rel="stylesheet" href="css/homepage.css">
-    <!-- redirect: sends visitors straight to the main page (frtzhahn) -->
-    <meta http-equiv="refresh" content="0; url=homepage.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BSCS 1A Memory Book — The digital time capsule of our journey through first year.">
+  <title>BSCS Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/logo.png">
 </head>
-
 <body>
-    <p>Redirecting to <a href="homepage.html">homepage.html</a>...</p>
-</body>
 
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div style="display: flex; align-items: center;">
+      <img src="/assets/logo.png" alt="BSCS" style="height: 30px; margin-right: 15px;">
+      <span class="navbar-brand">BSCS 1A</span>
+    </div>
+    <ul class="navbar-links">
+      <li><a href="/" class="active">Home</a></li>
+      <li><a href="/moments.html">Gallery</a></li>
+      <li><a href="/upload.html">Upload</a></li>
+      <li><a href="/admin.html">Admin</a></li>
+    </ul>
+    <div id="sys-clock" style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent);"></div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero-section">
+    <h1>BSCS Archive</h1>
+    <p>The digital time capsule of our journey.</p>
+  </div>
+
+  <div class="container" style="text-align: center;">
+    <div class="terminal-header">> ARCHIVE_SAMPLES // CLASSIFIED</div>
+    <div class="marquee-container">
+      <div class="marquee-track">
+        <div class="mini-frame"><img src="/assets/samples/sample-image1.JPG" alt="Sample 1" loading="lazy"></div>
+        <div class="mini-frame"><img src="/assets/samples/sample-image2.JPG" alt="Sample 2" loading="lazy"></div>
+        <div class="mini-frame"><img src="/assets/samples/sample-image3.JPG" alt="Sample 3" loading="lazy"></div>
+        <div class="mini-frame"><img src="/assets/samples/sample-image4.JPG" alt="Sample 4" loading="lazy"></div>
+        <div class="mini-frame"><img src="/assets/samples/sample-image5.JPG" alt="Sample 5" loading="lazy"></div>
+        <div class="mini-frame"><img src="/assets/samples/sample-image6.JPG" alt="Sample 6" loading="lazy"></div>
+        <!-- Duplicated for seamless loop -->
+        <div class="mini-frame"><img src="/assets/samples/sample-image1.JPG" alt="Sample 1" loading="lazy"></div>
+        <div class="mini-frame"><img src="/assets/samples/sample-image2.JPG" alt="Sample 2" loading="lazy"></div>
+        <div class="mini-frame"><img src="/assets/samples/sample-image3.JPG" alt="Sample 3" loading="lazy"></div>
+        <div class="mini-frame"><img src="/assets/samples/sample-image4.JPG" alt="Sample 4" loading="lazy"></div>
+        <div class="mini-frame"><img src="/assets/samples/sample-image5.JPG" alt="Sample 5" loading="lazy"></div>
+        <div class="mini-frame"><img src="/assets/samples/sample-image6.JPG" alt="Sample 6" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Z-Section 1: Text Left, Image Right -->
+  <section class="z-section">
+    <div class="z-text">
+      <h2>Our Journey, Framed Forever</h2>
+      <p>College life is fleeting, but our memories shouldn't be. Every candid shot, every group photo, every stolen moment between classes — they all live here, preserved in pixels and context.</p>
+      <a href="/moments.html" class="z-btn">Relive the Moments</a>
+    </div>
+    <div class="z-image">
+      <img src="/assets/samples/sample-image2.JPG" alt="Class memories">
+    </div>
+  </section>
+
+  <!-- Z-Section 2: Image Left, Text Right -->
+  <section class="z-section reverse">
+    <div class="z-text">
+      <h2>Share Your Side</h2>
+      <p>Our archive is only as good as the memories we share. Everyone sees college differently — your perspective matters. Upload your photos and let the class fill in the blanks.</p>
+      <a href="/upload.html" class="z-btn">Upload to Vault</a>
+    </div>
+    <div class="z-image">
+      <img src="/assets/samples/sample-image6.JPG" alt="Upload your memories">
+    </div>
+  </section>
+
+  <!-- How to Contribute -->
+  <section class="contribute-section">
+    <h2>How to Contribute</h2>
+    <div class="contribute-grid">
+      <div class="contribute-card">
+        <h3>1. Select Media</h3>
+        <p>Choose your best photos from class events, hangouts, or any moment worth remembering. We accept JPG, PNG, WebP, and GIF formats.</p>
+      </div>
+      <div class="contribute-card">
+        <h3>2. Write Description</h3>
+        <p>Provide context: who's in the photo, what was happening, and when it was taken. A good caption makes a memory last longer.</p>
+      </div>
+      <div class="contribute-card">
+        <h3>3. Send to Editor</h3>
+        <p>Submit your upload and wait for admin verification. Once approved, your photo joins the archive for the entire class to see.</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="/js/main.js"></script>
+</body>
 </html>

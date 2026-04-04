@@ -1,0 +1,22 @@
+{
+  "name": "bscs1a-tribute",
+  "version": "1.0.0",
+  "description": "BSCS 1A Memory Book - A tribute website for the class",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^17.4.0",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "express-session": "^1.18.1",
+    "multer": "^1.4.5-lts.2",
+    "sqlite3": "^5.1.7"
+  }
+}

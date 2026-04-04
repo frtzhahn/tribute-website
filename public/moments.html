@@ -1,258 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investigation: Captured Moments | Turing Archive</title>
-    <meta name="description" content="A photo collage tribute using sample assets.">
-    <link rel="icon" type="image/png" href="../assets/images/sample-contents/favicon.png">
-    <link rel="stylesheet" href="css/shared.css">
-    <link rel="stylesheet" href="css/moments.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BSCS 1A Memory Book — Browse the gallery of approved class memories.">
+  <title>Gallery — BSCS Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/logo.png">
 </head>
-
 <body>
-    <!-- Splash Screen Overlay (frtzhahn) -->
-    <div class="splash-screen">
-        <div class="stamp-impact" data-content="MOMENTS"></div>
-        <div class="splash-title">DEVELOPING VISUALS...</div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div style="display: flex; align-items: center;">
+      <img src="/assets/logo.png" alt="BSCS" style="height: 30px; margin-right: 15px;">
+      <span class="navbar-brand">BSCS 1A</span>
     </div>
+    <ul class="navbar-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/moments.html" class="active">Gallery</a></li>
+      <li><a href="/upload.html">Upload</a></li>
+      <li><a href="/admin.html">Admin</a></li>
+    </ul>
+    <div id="sys-clock" style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent);"></div>
+  </nav>
 
-    <!-- Modal Triggers (frtzhahn) -->
-    <!-- modal triggers: using hidden checkboxes to handle popups without js (frtzhahn) -->
-    <input type="checkbox" id="trigger1" class="modal-trigger">
-    <input type="checkbox" id="trigger2" class="modal-trigger">
-    <input type="checkbox" id="trigger3" class="modal-trigger">
-    <input type="checkbox" id="trigger4" class="modal-trigger">
-    <input type="checkbox" id="trigger5" class="modal-trigger">
-    <input type="checkbox" id="trigger6" class="modal-trigger">
-    <input type="checkbox" id="trigger7" class="modal-trigger">
-    <input type="checkbox" id="trigger8" class="modal-trigger">
-    <input type="checkbox" id="trigger9" class="modal-trigger">
-    <input type="checkbox" id="trigger10" class="modal-trigger">
+  <!-- Classified Header -->
+  <header class="board-title">
+    <div class="stamp"></div>
+    <span class="intro-badge">DECLASSIFIED_CRINGE_MOMENTS // COLLECTING_POTENTIAL_MEME_CONTENT</span>
+    <h1>BSCS ARCHIVED MOMENTS</h1>
+    <p class="intro-text">
+      Access captured and archived moments. Explore the legacy of the BSCS journey. Click any file below to expand and decrypt the attached visual records.
+    </p>
+  </header>
 
-    <main class="collage-board">
-        <nav class="archive-nav">
-            <a href="homepage.html" class="nav-btn">HOME_PAGE</a>
-            <a href="moments.html" class="nav-btn">MOMENTS</a>
-            <a href="events.html" class="nav-btn">EVENTS</a>
-        </nav>
-        <header class="board-title">
-            <div class="stamp"></div>
-            <span class="intro-badge">DECLASSIFIED_CRINGE_MOMENTS //
-                COLLECTING_POTENTIAL_MEME_CONTENT_FROM_GDRIVE</span>
-            <h1>BSCS ARCHIVED MOMENTS</h1>
-            <p class="intro-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit.
-            </p>
-        </header>
-
-        <!-- photo frames on the board: linked to the triggers above (frtzhahn) -->
-        <label for="trigger1" class="photo-item" id="photo1">
-            <div class="photo-frame" data-plate="BSCS-ARCHIVED-MOMENT-#00">
-                <img src="../assets/images/sample-contents/_DSC0010.JPG" alt="Archive Image 01">
-            </div>
-        </label>
-
-        <label for="trigger2" class="photo-item" id="photo2">
-            <div class="photo-frame" data-plate="BSCS-ARCHIVED-MOMENT-#01">
-                <img src="../assets/images/sample-contents/_DSC0013.JPG" alt="Archive Image 02">
-            </div>
-        </label>
-
-        <label for="trigger3" class="photo-item" id="photo3">
-            <div class="photo-frame" data-plate="BSCS-ARCHIVED-MOMENT-#02">
-                <img src="../assets/images/sample-contents/_DSC0025.JPG" alt="Archive Image 03">
-            </div>
-        </label>
-
-        <label for="trigger4" class="photo-item" id="photo4">
-            <div class="photo-frame" data-plate="BSCS-ARCHIVED-MOMENT-#03">
-                <img src="../assets/images/sample-contents/_DSC0027.JPG" alt="Archive Image 04">
-            </div>
-        </label>
-
-        <label for="trigger5" class="photo-item" id="photo5">
-            <div class="photo-frame" data-plate="BSCS-ARCHIVED-MOMENT-#04">
-                <img src="../assets/images/sample-contents/_DSC0029.JPG" alt="Archive Image 05">
-            </div>
-        </label>
-
-        <label for="trigger6" class="photo-item" id="photo6">
-            <div class="photo-frame" data-plate="BSCS-ARCHIVED-MOMENT-#05">
-                <img src="../assets/images/sample-contents/_DSC0046.JPG" alt="Archive Image 06">
-            </div>
-        </label>
-
-        <label for="trigger7" class="photo-item" id="photo7">
-            <div class="photo-frame" data-plate="BSCS-ARCHIVED-MOMENT-#06">
-                <img src="../assets/images/sample-contents/_DSC0068.JPG" alt="Archive Image 07">
-            </div>
-        </label>
-
-        <label for="trigger8" class="photo-item" id="photo8">
-            <div class="photo-frame" data-plate="BSCS-ARCHIVED-MOMENT-#07">
-                <img src="../assets/images/sample-contents/_DSC0106.JPG" alt="Archive Image 08">
-            </div>
-        </label>
-
-        <label for="trigger9" class="photo-item" id="photo9">
-            <div class="photo-frame" data-plate="BSCS-ARCHIVED-MOMENT-#08">
-                <img src="../assets/images/sample-contents/_DSC0163.JPG" alt="Archive Image 09">
-            </div>
-        </label>
-
-        <label for="trigger10" class="photo-item" id="photo10">
-            <div class="photo-frame" data-plate="BSCS-ARCHIVED-MOMENT-#09">
-                <img src="../assets/images/sample-contents/_DSC0166.JPG" alt="Archive Image 10">
-            </div>
-        </label>
-    </main>
-
-    <!-- Modal Overlays (Outside main for perfect centering) (frtzhahn) -->
-    <div class="modal-overlay" id="overlay1">
-        <div class="modal-content">
-            <img src="../assets/images/sample-contents/_DSC0010.JPG" alt="Archive Image" class="modal-img">
-            <div class="info-card">
-                <label for="trigger1" class="close-btn">[X] CLOSE</label>
-                <h2>Archived Moment #00</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Archive records show maintained
-                    integrity.</p>
-            </div>
-        </div>
+  <!-- Gallery -->
+  <main class="container">
+    <div class="filter-terminal">
+      <span>> QUERY_PARAMS:</span>
+      <input type="date" id="filter-start" class="form-control" style="width: auto;">
+      <span>TO</span>
+      <input type="date" id="filter-end" class="form-control" style="width: auto;">
+      <button id="btn-apply-filter" class="btn-terminal" style="margin-top: 0; padding: 0.5rem 1rem; width: auto;">EXECUTE</button>
     </div>
-
-    <div class="modal-overlay" id="overlay2">
-        <div class="modal-content">
-            <img src="../assets/images/sample-contents/_DSC0013.JPG" alt="Archive Image" class="modal-img">
-            <div class="info-card">
-                <label for="trigger2" class="close-btn">[X] CLOSE</label>
-                <h2>Archived Moment #01</h2>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur. Archive records show maintained integrity.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur. Archive records show maintained integrity.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur. Archive records show maintained integrity.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur. Archive records show maintained integrity.</p>
-            </div>
-        </div>
+    <div class="gallery-grid" id="gallery-grid">
+      <!-- cards injected by main.js -->
     </div>
+  </main>
 
-    <div class="modal-overlay" id="overlay3">
-        <div class="modal-content">
-            <img src="../assets/images/sample-contents/_DSC0025.JPG" alt="Archive Image" class="modal-img">
-            <div class="info-card">
-                <label for="trigger3" class="close-btn">[X] CLOSE</label>
-                <h2>Archive Moment #03</h2>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur. Archive records show maintained integrity..</p>
-            </div>
-        </div>
+  <!-- Lightbox Modal -->
+  <div class="modal" id="lightbox-modal">
+    <div class="modal-content dossier-modal-content" id="modal-content">
+      <button class="modal-close" id="modal-close" aria-label="Close lightbox">&times;</button>
+      <img class="modal-img" id="modal-img" src="" alt="Enlarged photo">
+      <p class="modal-desc" id="modal-desc"></p>
     </div>
+  </div>
 
-    <div class="modal-overlay" id="overlay4">
-        <div class="modal-content">
-            <img src="../assets/images/sample-contents/_DSC0027.JPG" alt="Archive Image" class="modal-img">
-            <div class="info-card">
-                <label for="trigger4" class="close-btn">[X] CLOSE</label>
-                <h2>Archive Moment #04</h2>
-                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                    deleniti atque corrupti.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="overlay5">
-        <div class="modal-content">
-            <img src="../assets/images/sample-contents/_DSC0029.JPG" alt="Archive Image" class="modal-img">
-            <div class="info-card">
-                <label for="trigger5" class="close-btn">[X] CLOSE</label>
-                <h2>Archive Moment #05</h2>
-                <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-                    eligendi optio.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="overlay6">
-        <div class="modal-content">
-            <img src="../assets/images/sample-contents/_DSC0046.JPG" alt="Archive Image" class="modal-img">
-            <div class="info-card">
-                <label for="trigger6" class="close-btn">[X] CLOSE</label>
-                <h2>Archive Moment #06</h2>
-                <p>Temporibus autem quibusdam et aut offices debitis aut rerum necessitatibus saepe eveniet ut et
-                    voluptates repudiandae.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="overlay7">
-        <div class="modal-content">
-            <img src="../assets/images/sample-contents/_DSC0068.JPG" alt="Archive Image" class="modal-img">
-            <div class="info-card">
-                <label for="trigger7" class="close-btn">[X] CLOSE</label>
-                <h2>Archive Moment #07</h2>
-                <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
-                    aliquid ex ea commodi.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="overlay8">
-        <div class="modal-content">
-            <img src="../assets/images/sample-contents/_DSC0106.JPG" alt="Archive Image" class="modal-img">
-            <div class="info-card">
-                <label for="trigger8" class="close-btn">[X] CLOSE</label>
-                <h2>Archive Moment #08</h2>
-                <!-- detailed reveal views for the photos (frtzhahn) -->
-                <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae
-                    consequatur, vel illum qui.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="overlay9">
-        <div class="modal-content">
-            <img src="../assets/images/sample-contents/_DSC0163.JPG" alt="Archive Image" class="modal-img">
-            <div class="info-card">
-                <label for="trigger9" class="close-btn">[X] CLOSE</label>
-                <h2>Archive Moment #09</h2>
-                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                    magni dolores eos.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="overlay10">
-        <div class="modal-content">
-            <img src="../assets/images/sample-contents/_DSC0166.JPG" alt="Archive Image" class="modal-img">
-            <div class="info-card">
-                <label for="trigger10" class="close-btn">[X] CLOSE</label>
-                <h2>Archive Moment #10</h2>
-                <p>Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-                    magnam aliquam.</p>
-            </div>
-        </div>
-    </div>
-
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-status">
-                <p>FILE_STATUS: BSCS-ARCHIVE // TOTAL_PLATES: 10</p>
-            </div>
-            <div class="footer-text">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Archive collection v1.0.</p>
-            </div>
-        </div>
-    </footer>
-
+  <script src="/js/main.js"></script>
 </body>
-
 </html>
