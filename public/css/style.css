@@ -1,9 +1,6 @@
-/* ==========================================================================
-   BSCS 1A Memory Book — Master Stylesheet
-   Design System: Dark charcoal + off-white/tan + white polaroid cards
-   ========================================================================== */
+/* master stylesheet */
 
-/* --- CSS Reset --- */
+/* base reset */
 *,
 *::before,
 *::after {
@@ -12,7 +9,7 @@
   padding: 0;
 }
 
-/* --- Design Tokens --- */
+/* design tokens */
 :root {
   --bg:          #1a1918;
   --text:        #e6dfd3;
@@ -42,7 +39,7 @@
     100% { background-position: 0% 50%; }
 }
 
-/* --- Base --- */
+/* base styling */
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
@@ -51,7 +48,7 @@ html {
 body {
   font-family: var(--font);
   background-color: #1d2021;
-  /* Gruvbox Dark background with 20% opacity retro accent waves (Red, Orange, Aqua) */
+  /* gruvbox background */
   background-image: linear-gradient(-45deg, #1d2021, rgba(204, 36, 29, 0.2), #282828, rgba(214, 93, 14, 0.2), #1d2021, rgba(104, 157, 106, 0.2), #1d2021);
   background-size: 400% 400%;
   animation: flow 15s ease infinite;
@@ -79,16 +76,14 @@ a:hover {
   color: var(--accent-hover);
 }
 
-/* --- Layout --- */
+/* layout rules */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
 }
 
-/* ==========================================================================
-   Navbar
-   ========================================================================== */
+/* sticky navbar */
 .navbar {
   position: sticky;
   top: 0;
@@ -105,7 +100,7 @@ a:hover {
 
 .mobile-menu-btn { display: none; background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 0.5rem 1rem; font-family: 'Fira Code', monospace; cursor: pointer; border-radius: 2px; }
 
-/* Phase 7.5 Living Background */
+/* living background */
 body::before {
   content: '';
   position: fixed;
@@ -153,9 +148,7 @@ body::before {
   color: var(--text);
 }
 
-/* ==========================================================================
-   Hero
-   ========================================================================== */
+/* hero section */
 .hero {
   text-align: center;
   padding: 4rem 1rem 3rem;
@@ -177,9 +170,7 @@ body::before {
   letter-spacing: 0.02em;
 }
 
-/* ==========================================================================
-   Gallery Grid
-   ========================================================================== */
+/* gallery grid */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -187,7 +178,7 @@ body::before {
     width: 100%;
 }
 
-/* --- Polaroid Card --- */
+/* polaroid card */
 .photo-card {
   background: #282828;
   border: 1px solid #3c3836;
@@ -237,9 +228,7 @@ body::before {
   font-size: 1rem;
 }
 
-/* ==========================================================================
-   Lightbox Modal
-   ========================================================================== */
+/* lightbox modal */
 .modal {
   position: fixed;
   inset: 0;
@@ -323,9 +312,7 @@ body::before {
   opacity: 1;
 }
 
-/* ==========================================================================
-   Forms — Upload & Admin Login
-   ========================================================================== */
+/* form styling */
 .form-page {
   display: flex;
   align-items: center;
@@ -398,7 +385,7 @@ body::before {
   cursor: pointer;
 }
 
-/* --- Buttons --- */
+/* standard buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -455,7 +442,7 @@ body::before {
   background-color: var(--danger-hover);
 }
 
-/* --- Toast / Status Message --- */
+/* status messages */
 .form-status {
   margin-top: 1rem;
   padding: 0.65rem 0.85rem;
@@ -479,9 +466,7 @@ body::before {
   border: 1px solid rgba(192, 57, 43, 0.25);
 }
 
-/* ==========================================================================
-   Admin Dashboard (post-login)
-   ========================================================================== */
+/* admin dashboard */
 .admin-dashboard {
   display: none;
 }
@@ -536,6 +521,7 @@ body::before {
   display: flex;
   gap: 0.5rem;
   margin-top: 0.85rem;
+  padding-bottom: 1rem;
 }
 
 .pending-card-actions .btn {
@@ -552,9 +538,7 @@ body::before {
   font-size: 1rem;
 }
 
-/* ==========================================================================
-   Z-Pattern Landing Page
-   ========================================================================== */
+/* landing page */
 .hero-section {
   text-align: center;
   padding: 6rem 2rem 2rem;
@@ -577,7 +561,7 @@ body::before {
   letter-spacing: 0.02em;
 }
 
-/* --- Z-Section (alternating text/image rows) --- */
+/* z-section rows */
 .z-section {
   display: flex;
   align-items: center;
@@ -655,7 +639,7 @@ body::before {
   opacity: 1;
 }
 
-/* --- How to Contribute --- */
+/* contribute info */
 .contribute-section {
   padding: 4rem 2rem;
   max-width: 1200px;
@@ -702,9 +686,7 @@ body::before {
   line-height: 1.6;
 }
 
-/* ==========================================================================
-   Board Title & Stamp — Moments Gallery Header
-   ========================================================================== */
+/* gallery header */
 .board-title {
   position: relative;
   padding: 4rem 2rem 2rem;
@@ -769,9 +751,7 @@ body::before {
   padding: 5px;
 }
 
-/* ==========================================================================
-   Terminal Card — Upload & Admin Forms
-   ========================================================================== */
+/* terminal card */
 .terminal-card {
   max-width: 600px;
   margin: 6rem auto;
@@ -858,7 +838,7 @@ body::before {
   background: transparent;
 }
 
-/* --- Terminal Status Messages --- */
+/* terminal status */
 .terminal-card .form-status.success {
   background-color: rgba(74, 222, 128, 0.1);
   color: #4ade80;
@@ -871,9 +851,7 @@ body::before {
   border: 1px solid rgba(192, 57, 43, 0.3);
 }
 
-/* ==========================================================================
-   Admin Dashboard — Terminal Aesthetic
-   ========================================================================== */
+/* admin terminal */
 .admin-dashboard {
   max-width: 1200px;
   margin: 4rem auto;
@@ -949,9 +927,7 @@ body::before {
   cursor: not-allowed;
 }
 
-/* ==========================================================================
-   Phase 7 Enhancements
-   ========================================================================== */
+/* phase enhancements */
 .photo-card, .photo-frame {
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
 }
@@ -989,9 +965,7 @@ body::before {
   display: none !important;
 }
 
-/* ==========================================================================
-   Phase 7.5 Overhaul
-   ========================================================================== */
+/* phase overhaul */
 .sys-counter {
   font-family: 'Fira Code', monospace;
   font-size: 0.75rem;
@@ -1130,9 +1104,7 @@ body::before {
   100% { transform: translateX(-50%); }
 }
 
-/* ==========================================================================
-   Phase 9 Cinematic Loaders
-   ========================================================================== */
+/* cinematic loaders */
 .loader-theme {
   margin-bottom: 20px;
 }
@@ -1190,9 +1162,7 @@ body::before {
   margin-top: 15px;
 }
 
-/* ==========================================================================
-   Responsive
-   ========================================================================== */
+/* responsive queries */
 @media (max-width: 768px) {
   .z-section,
   .z-section.reverse {
@@ -1212,18 +1182,18 @@ body::before {
 }
 
 @media (max-width: 600px) {
-     /* --- Navbar Overrides --- */
+     /* navbar overrides */
      .navbar { flex-wrap: wrap; }
      .navbar-links { display: none; flex-direction: column; width: 100%; text-align: center; gap: 1rem; padding-top: 1rem; }
      .navbar-links.active { display: flex; }
      .mobile-menu-btn { display: block; }
 
-     /* --- Inline Flex Overrides --- */
+     /* flex overrides */
      .admin-toggles { flex-direction: column !important; }
      .filter-terminal { flex-direction: column; width: 100%; }
      .filter-terminal input, .filter-terminal button { width: 100% !important; margin-top: 5px; }
 
-     /* --- 100% Screen Dossier Modal --- */
+     /* screen dossier */
      .modal { padding: 0; }
      .modal-content { 
        max-width: 100vw; max-height: 100vh; width: 100vw; height: 100vh; 
@@ -1262,9 +1232,7 @@ body::before {
   }
 }
 
-/* ==========================================================================
-   Phase 13: UX Polish & Zoom Animation
-   ========================================================================== */
+/* ux animations */
 .action-btns {
   display: flex;
   flex-direction: column;
@@ -1287,7 +1255,7 @@ body::before {
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-/* Active state triggered by JS */
+/* javascript active state */
 .dossier-modal-content.zoom-active {
   transform: scale(1);
   opacity: 1;

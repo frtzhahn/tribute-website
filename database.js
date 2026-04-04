@@ -1,5 +1,5 @@
-// database.js — sqlite3 initialization and schema bootstrap
-// exports the db instance for use in server.js
+// init sqlite connection
+// handle db exports
 
 const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
@@ -14,10 +14,10 @@ const db = new sqlite3.Database(DB_PATH, (err) => {
   console.log("[DB] Connected to SQLite database at", DB_PATH);
 });
 
-// enable WAL mode for better concurrent read performance
+// enable fast concurrent reads
 db.run("PRAGMA journal_mode = WAL;");
 
-// create the images table if it does not already exist
+// bootstrap images table schema
 db.run(
   `CREATE TABLE IF NOT EXISTS images (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,7 +34,7 @@ db.run(
   }
 );
 
-// Safe migration: Add view_count column if it doesn't exist
+// schema migration for views
 db.run("ALTER TABLE images ADD COLUMN view_count INTEGER DEFAULT 0", (err) => {
   if (err && !err.message.includes("duplicate column name")) {
     console.error("[DB] Failed to add view_count column:", err.message);

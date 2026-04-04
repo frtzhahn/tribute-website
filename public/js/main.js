@@ -1,16 +1,16 @@
-// main.js — frontend logic for BSCS 1A Memory Book
-// SECURITY: all dynamic text is set via textContent / createElement — never innerHTML
+// frontend logic for bscs 1a memory book
+// secure text inject to prevent xss
 
 (function () {
   "use strict";
 
-  // --- Phase 7: Clock ---
+  // spawn clock ticker
   setInterval(() => {
     const c = document.getElementById('sys-clock');
     if (c) c.innerText = new Date().toLocaleString();
   }, 1000);
 
-  // --- Phase 9: Cinematic Loader & Route Init ---
+  // set up cinematic loader
   document.addEventListener("DOMContentLoaded", () => {
     const nav = document.getElementById("navbar");
     const navLinks = document.querySelector(".navbar-links");
@@ -54,7 +54,7 @@
       loaderWrapper.style.opacity = "0";
       setTimeout(() => {
         loaderWrapper.remove();
-        // Route page logic
+        // jump to proper context
         if (page === "/moments.html") initGallery();
         else if (page === "/upload.html") initUpload();
         else if (page === "/admin.html") initAdmin();
@@ -62,9 +62,7 @@
     }, 1200);
   });
 
-  // =======================================================================
-  // Gallery Page (index.html)
-  // =======================================================================
+  // handle gallery screen
   function initGallery() {
     const grid = document.getElementById("gallery-grid");
     const modal = document.getElementById("lightbox-modal");
@@ -72,7 +70,7 @@
     const modalDesc = document.getElementById("modal-desc");
     const modalClose = document.getElementById("modal-close");
 
-    // --- Phase 7: Filter Logic ---
+    // bind date filter
     const btnFilter = document.getElementById("btn-apply-filter");
     if (btnFilter) {
       btnFilter.addEventListener("click", () => {
@@ -81,7 +79,7 @@
         const cards = grid.querySelectorAll(".photo-card");
         cards.forEach(c => {
           const d = c.getAttribute("data-date");
-          if (!d) return; // If no date, leave it as is or hide?
+          if (!d) return; // skip unformatted legacy items
           if ((start && d < start) || (end && d > end)) {
             c.style.display = "none";
           } else {
@@ -91,7 +89,7 @@
       });
     }
 
-    // --- Phase 7.5: Decrypting Curtain ---
+    // mount decrypt splash screen
     const loader = document.createElement("div");
     loader.className = "splash-screen";
     loader.innerHTML = `
@@ -105,11 +103,11 @@
         loader.classList.add("hidden");
         setTimeout(() => loader.remove(), 800);
       }
-    }, 10000); // 10s strict fallback
+    }, 10000); // clear if stranded over 10s
 
     fetchImages();
 
-    // --- Fetch and render approved images ---
+    // grab permitted photos
     async function fetchImages() {
       try {
         const res = await fetch("/api/images");
@@ -141,12 +139,12 @@
       }
     }
 
-    // --- Build a single polaroid card ---
+    // spawn polaroid widget
     function createPhotoCard(data) {
       var card = document.createElement("div");
       card.className = "photo-card";
 
-      // Phase 7.5 Data Parser
+      // unpack description json safely
       let parsed;
       try {
         parsed = JSON.parse(data.description);
@@ -164,7 +162,7 @@
 
       var desc = document.createElement("p");
       desc.className = "photo-card-desc";
-      desc.textContent = `> ${parsed.title} | ${parsed.date}`; // HIDE DESC, SHOW TITLE/DATE ONLY
+      desc.textContent = `> ${parsed.title} | ${parsed.date}`; // mask full body text text
 
       var uploaderText = document.createElement("p");
       uploaderText.className = "uploader-info";
@@ -178,7 +176,7 @@
       card.appendChild(desc);
       card.appendChild(uploaderText);
 
-      // click → open lightbox
+      // reveal full size on tap
       card.addEventListener("click", function () {
         modalImg.src = data.filepath;
         modalImg.alt = parsed.title;
@@ -212,11 +210,11 @@
       return card;
     }
 
-    // --- Modal controls ---
+    // configure modal behavior
     modalClose.addEventListener("click", closeModal);
 
     modal.addEventListener("click", function (e) {
-      // close if clicked on backdrop (not on the image/content)
+      // close if blur clicked
       if (e.target === modal) {
         closeModal();
       }
@@ -242,15 +240,13 @@
     }
   }
 
-  // =======================================================================
-  // Upload Page (upload.html)
-  // =======================================================================
+  // manage file ingest portal
   function initUpload() {
     var form = document.getElementById("upload-form");
     var submitBtn = document.getElementById("upload-btn");
     var statusEl = document.getElementById("upload-status");
 
-    // Phase 7.5: Live Counters
+    // tie up length bounds
     const titleIn = document.getElementById("upload-title");
     const descIn = document.getElementById("upload-desc");
     const titleCount = document.getElementById("title-counter");
@@ -270,14 +266,14 @@
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
 
-      // INSTANTLY disable to prevent double-submissions
+      // lock out phantom clicks
       submitBtn.disabled = true;
       submitBtn.textContent = "TRANSMITTING...";
       hideStatus();
 
       var formData = new FormData(form);
 
-      // Phase 7.5 Form interception to map into single string wrapper
+      // consolidate properties into chunk
       var finalData = new FormData();
       finalData.append("image", formData.get("image"));
       var aliasVal = document.getElementById("upload-alias") ? document.getElementById("upload-alias").value.trim() : "";
@@ -323,9 +319,7 @@
     }
   }
 
-  // =======================================================================
-  // Admin Page (admin.html)
-  // =======================================================================
+  // arm control console
   function initAdmin() {
     var loginSection = document.getElementById("login-section");
     var loginForm = document.getElementById("admin-login-form");
@@ -357,7 +351,7 @@
           throw new Error(data.error || "Authentication failed.");
         }
 
-        // hide login, show dashboard
+        // bypass login form visually
         loginSection.style.display = "none";
         dashboard.classList.add("active");
         fetchPending();
@@ -379,14 +373,14 @@
       loginStatus.textContent = "";
     }
 
-    // --- Fetch and render pending images ---
+    // load unlisted objects
     async function fetchPending() {
       try {
         var res = await fetch("/api/admin/pending");
         if (!res.ok) throw new Error("Failed to load pending images.");
         var images = await res.json();
 
-        pendingGrid.textContent = ""; // clear
+        pendingGrid.textContent = ""; // obliterate children
 
         if (images.length === 0) {
           var empty = document.createElement("p");
@@ -408,12 +402,12 @@
       }
     }
 
-    // --- Build a single pending card with terminal-styled approve/reject ---
+    // form command prompt card
     function createPendingCard(data) {
       var card = document.createElement("div");
       card.className = "photo-card";
 
-      // Phase 7.5: Parse JSON for pending cards
+      // crack token wrapper
       let parsed;
       try {
         parsed = JSON.parse(data.description);
@@ -451,7 +445,7 @@
       rejectBtn.className = "btn-reject";
       rejectBtn.textContent = "REJECT";
 
-      // --- Approve handler ---
+      // fire authorization hook
       approveBtn.addEventListener("click", async function () {
         approveBtn.disabled = true;
         rejectBtn.disabled = true;
@@ -463,10 +457,10 @@
 
           if (!res.ok) throw new Error(result.error || "Approve failed.");
 
-          // remove card from DOM
+          // expunge node
           card.remove();
 
-          // check if grid is now empty
+          // scan for leftover cards
           if (pendingGrid.children.length === 0) {
             var empty = document.createElement("p");
             empty.className = "pending-empty";
@@ -481,7 +475,7 @@
         }
       });
 
-      // --- Reject handler ---
+      // fire blacklist hook
       rejectBtn.addEventListener("click", async function () {
         approveBtn.disabled = true;
         rejectBtn.disabled = true;
@@ -493,10 +487,10 @@
 
           if (!res.ok) throw new Error(result.error || "Reject failed.");
 
-          // remove card from DOM
+          // expunge node
           card.remove();
 
-          // check if grid is now empty
+          // scan for leftover cards
           if (pendingGrid.children.length === 0) {
             var empty = document.createElement("p");
             empty.className = "pending-empty";
@@ -522,7 +516,7 @@
       return card;
     }
 
-    // --- Phase 11 Toggles ---
+    // mount scope toggles
     var btnViewPending = document.getElementById("btn-view-pending");
     var btnViewActive = document.getElementById("btn-view-active");
     var activeGrid = document.getElementById("active-grid");
@@ -666,7 +660,7 @@
           if (mContent) mContent.classList.remove("zoom-active");
           setTimeout(() => {
             editModal.classList.remove("is-open");
-            fetchActive(); // refresh
+            fetchActive(); // swap views
           }, 300);
         } catch(e) {
           console.error(e);
@@ -676,4 +670,3 @@
     }
   }
 })();
-

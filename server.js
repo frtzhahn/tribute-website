@@ -1,5 +1,5 @@
-// server.js — express application with all API routes
-// tech: express, multer, express-session, bcrypt, express-rate-limit, sqlite3
+// express backend core
+// dependencies: express, multer, auth, db limiters
 
 require("dotenv").config();
 const express = require("express");
@@ -15,9 +15,7 @@ const db = require("./database");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ---------------------------------------------------------------------------
-// middleware
-// ---------------------------------------------------------------------------
+// global middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -29,15 +27,13 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: false, // set to true behind HTTPS in production
+      secure: false, // requires https for prod
       maxAge: 1000 * 60 * 60 * 2, // 2 hours
     },
   })
 );
 
-// ---------------------------------------------------------------------------
-// multer configuration — randomized filenames + strict file filter
-// ---------------------------------------------------------------------------
+// setup file uploads with random names and strict type checking
 const ALLOWED_MIMETYPES = [
   "image/jpeg",
   "image/png",
@@ -51,7 +47,7 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, "public", "uploads"));
   },
   filename: (_req, file, cb) => {
-    // randomized: timestamp + 16-byte hex + original extension
+    // generate unique filename hash
     const ext = path.extname(file.originalname).toLowerCase();
     const uniqueName = `${Date.now()}-${crypto.randomBytes(16).toString("hex")}${ext}`;
     cb(null, uniqueName);
@@ -73,23 +69,19 @@ const fileFilter = (_req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10 MB max
+  limits: { fileSize: 10 * 1024 * 1024 }, // max upload cap
 });
 
-// ---------------------------------------------------------------------------
-// rate limiter — /api/upload (max 5 requests per hour per IP)
-// ---------------------------------------------------------------------------
+// block api spam (5 req/hr)
 const uploadLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
+  windowMs: 60 * 60 * 1000, // timeframe
   max: 5,
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: "Too many uploads. Please try again later." },
 });
 
-// ---------------------------------------------------------------------------
-// auth middleware for admin routes
-// ---------------------------------------------------------------------------
+// secure endpoint guard
 function requireAuth(req, res, next) {
   if (req.session && req.session.isAdmin) {
     return next();
@@ -97,11 +89,9 @@ function requireAuth(req, res, next) {
   return res.status(401).json({ error: "Unauthorized. Please log in." });
 }
 
-// ---------------------------------------------------------------------------
-// routes
-// ---------------------------------------------------------------------------
+// core endpoints
 
-// GET /api/images — return all approved images
+// fetch all approved gallery photos
 app.get("/api/images", (_req, res) => {
   db.all(
     "SELECT id, filepath, description, view_count FROM images WHERE status = 'approved' ORDER BY id DESC",
@@ -116,7 +106,7 @@ app.get("/api/images", (_req, res) => {
   );
 });
 
-// POST /api/upload — upload an image (rate-limited)
+// handle new memory submissions
 app.post("/api/upload", uploadLimiter, (req, res) => {
   upload.single("image")(req, res, (err) => {
     if (err instanceof multer.MulterError) {
@@ -149,7 +139,7 @@ app.post("/api/upload", uploadLimiter, (req, res) => {
   });
 });
 
-// POST /api/admin-login — validate admin credentials
+// check admin passwords
 app.post("/api/admin-login", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -165,13 +155,13 @@ app.post("/api/admin-login", async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials." });
     }
 
-    // if ADMIN_PASSWORD env is a bcrypt hash, compare against it
-    // otherwise fall back to a default password for first-time setup
+    // check if stored variable is a hash
+    // fallback to plaintext for local dev
     let valid = false;
     if (adminHash && adminHash.startsWith("$2b$")) {
       valid = await bcrypt.compare(password, adminHash);
     } else {
-      // plaintext fallback (dev only) — hash should be set in production
+      // warn: bypass hash check
       valid = password === (adminHash || "admin");
     }
 
@@ -187,7 +177,7 @@ app.post("/api/admin-login", async (req, res) => {
   }
 });
 
-// GET /api/admin/pending — return pending images (auth required)
+// fetch unapproved queue
 app.get("/api/admin/pending", requireAuth, (_req, res) => {
   db.all(
     "SELECT id, filepath, description, view_count FROM images WHERE status = 'pending' ORDER BY id DESC",
@@ -202,7 +192,7 @@ app.get("/api/admin/pending", requireAuth, (_req, res) => {
   );
 });
 
-// POST /api/admin/approve/:id — approve a pending image (auth required)
+// authorize photo for public gallery
 app.post("/api/admin/approve/:id", requireAuth, (req, res) => {
   const { id } = req.params;
 
@@ -222,7 +212,7 @@ app.post("/api/admin/approve/:id", requireAuth, (req, res) => {
   );
 });
 
-// PUT /api/admin/edit/:id — update image description/JSON payload (auth required)
+// hotfix payload descriptors
 app.put("/api/admin/edit/:id", requireAuth, (req, res) => {
   const { id } = req.params;
   const { description } = req.body;
@@ -247,11 +237,11 @@ app.put("/api/admin/edit/:id", requireAuth, (req, res) => {
   );
 });
 
-// DELETE /api/admin/reject/:id — reject & delete image + file (auth required)
+// terminate record and nuke file
 app.delete("/api/admin/reject/:id", requireAuth, (req, res) => {
   const { id } = req.params;
 
-  // first, fetch the filepath so we can unlink the file from disk
+  // grab path before wiping db
   db.get("SELECT filepath FROM images WHERE id = ?", [id], async (err, row) => {
     if (err) {
       console.error("[API] DELETE /api/admin/reject select error:", err.message);
@@ -261,14 +251,14 @@ app.delete("/api/admin/reject/:id", requireAuth, (req, res) => {
       return res.status(404).json({ error: "Image not found." });
     }
 
-    // delete the database row
+    // clear from sqlite
     db.run("DELETE FROM images WHERE id = ?", [id], async function (delErr) {
       if (delErr) {
         console.error("[API] DELETE /api/admin/reject delete error:", delErr.message);
         return res.status(500).json({ error: "Failed to delete image record." });
       }
 
-      // async unlink wrapped in try/catch — safely handles ENOENT
+      // safely ignore missing files during purge
       const absolutePath = path.join(__dirname, "public", row.filepath);
       try {
         await fs.promises.unlink(absolutePath);
@@ -286,7 +276,7 @@ app.delete("/api/admin/reject/:id", requireAuth, (req, res) => {
   });
 });
 
-// POST /api/images/:id/view — Increment view count
+// bump impression tracker
 app.post("/api/images/:id/view", (req, res) => {
   const { id } = req.params;
   db.run("UPDATE images SET view_count = COALESCE(view_count, 0) + 1 WHERE id = ?", [id], function(err) {
@@ -300,9 +290,7 @@ app.post("/api/images/:id/view", (req, res) => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// start server
-// ---------------------------------------------------------------------------
+// boot backend
 app.listen(PORT, () => {
   console.log(`[SERVER] BSCS 1A Memory Book running on http://localhost:${PORT}`);
 });
