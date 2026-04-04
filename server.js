@@ -6,7 +6,7 @@ const express = require("express");
 const session = require("express-session");
 const rateLimit = require("express-rate-limit");
 const multer = require("multer");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
@@ -218,6 +218,31 @@ app.post("/api/admin/approve/:id", requireAuth, (req, res) => {
         return res.status(404).json({ error: "Image not found or already approved." });
       }
       return res.json({ message: "Image approved." });
+    }
+  );
+});
+
+// PUT /api/admin/edit/:id — update image description/JSON payload (auth required)
+app.put("/api/admin/edit/:id", requireAuth, (req, res) => {
+  const { id } = req.params;
+  const { description } = req.body;
+
+  if (!description) {
+    return res.status(400).json({ error: "Description payload is required." });
+  }
+
+  db.run(
+    "UPDATE images SET description = ? WHERE id = ?",
+    [description, id],
+    function (err) {
+      if (err) {
+        console.error("[API] PUT /api/admin/edit error:", err.message);
+        return res.status(500).json({ error: "Failed to update record." });
+      }
+      if (this.changes === 0) {
+        return res.status(404).json({ error: "Image not found." });
+      }
+      return res.json({ message: "Record updated successfully." });
     }
   );
 });

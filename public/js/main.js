@@ -225,6 +225,7 @@
         mContent.classList.remove("zoom-active");
       }
       setTimeout(() => {
+        document.querySelectorAll(".modal-views-counter").forEach(el => el.remove());
         modal.classList.remove("is-open");
         modalImg.src = "";
         modalDesc.textContent = "";

@@ -297,7 +297,8 @@ body::before {
   margin-top: 0;
   font-family: 'Fira Code', monospace;
   font-size: 0.85rem;
-  color: var(--accent-red);
+  color: #fb4934 !important;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
   letter-spacing: 2px;
 }
 
