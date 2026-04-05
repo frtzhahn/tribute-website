@@ -1,6 +1,9 @@
 # helper's documentation (pls don't judge me)
 PROJECT_AI_CONTEXT.md
 
+# personal notes
+notes/*.md
+
 # node.js
 node_modules/
 npm-debug.log*
