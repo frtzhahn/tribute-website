@@ -25,7 +25,7 @@ local web system designed to archive and manage class photos. basically a time c
 ## local setup
 
 > [!IMPORTANT]
-> this project doesn't implement any remote server or database and only relies locally since the database used for this project is sqlite3 meaning if you want to test this you need to build this from your device
+> this project doesn't use any remote servers or cloud databases and everything is designed to run locally using SQLite3 if you want to try and test this project you'll need to build, run, and host the local server from your own device  
 
 
 ## for linux/macOS/windows
